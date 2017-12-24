@@ -1,0 +1,60 @@
+{
+    "name": "root", //implicitno
+    "type": "RectLayout", //implicitno
+    "size": {
+        "width": 400,
+        "height": 300
+    },
+    "children": [
+        {
+            "name": "titula",
+            "type": "RectLayout",
+            "size": {
+                "width": 0.4,
+                "height": 0.2
+            },
+            "position": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "children": [
+                {
+                    "type": "TextField",
+                    "label": "Ime i prezime", //opis u formi
+                    "position": {
+                        "x": 0.07,
+                        "y": 0.3
+                    },
+                    "size": {},
+                    "fontSize": 12
+                },
+                {
+                    "type": "ImageField",
+                    "label": "Zig", //opis u formi
+                    "position": {
+                        ...
+                    },
+                    "size": {
+                        ...
+                    }
+                },
+                {
+                    "type": "Image", //template vrednost
+                    "position": {
+                        ...
+                    },
+                    "size": {
+                        ...
+                    },
+                    "value": "path"
+                },
+                {
+                    "type": "Text", //template vrednost
+                    "value": "e-mail",
+                    "position": {...},
+                    "size": {...}
+                }
+            ]
+        }
+    ]
+}

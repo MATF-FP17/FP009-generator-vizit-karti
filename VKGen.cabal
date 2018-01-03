@@ -3,7 +3,7 @@
 
 name:                VKGen
 version:             0.1.0.0
-synopsis:            Bussiness card generator
+synopsis:            Business card generator
 -- description:         
 license:             MIT
 license-file:        LICENSE

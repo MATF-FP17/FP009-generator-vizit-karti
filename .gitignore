@@ -26,7 +26,17 @@
 *.a
 *.lib
 
+# Interface files
+*.hi
+
 # Executables
 *.exe
 *.out
 *.app
+
+# Sandbox
+.cabal-sandbox
+cabal.sandbox.config
+
+# Dist
+dist

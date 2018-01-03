@@ -33,10 +33,15 @@ module VKTemplate where
         pos (LayoutObject p _) = pos p
         size (LayoutObject s _) = size s
 
+    isField :: LayoutObjectType -> Bool
+    isField (TextField _) = True
+    isField (ImageField _) = True
+    isField _ = False
 
     basicTemplate :: LayoutObject
-    basicTemplate = let
-                        nameLabel = LayoutObject (LayoutPair (0.1, 0.1) (0.9, 0.5)) $ Text "Ime" 12
-                        nameField = LayoutObject (LayoutPair (0.1, 0.6) (0.9, 0.5)) $ TextField "Ime"
-                    in
-                        LayoutObject (LayoutPair (0, 0) (300, 150)) $ RectLayout [nameLabel, nameField]
+    basicTemplate =
+        let
+            nameLabel = LayoutObject (LayoutPair (0.1, 0.1) (0.9, 0.5)) $ Text "Ime" 12
+            nameField = LayoutObject (LayoutPair (0.1, 0.6) (0.9, 0.5)) $ TextField "Ime"
+        in
+            LayoutObject (LayoutPair (0, 0) (300, 150)) $ RectLayout [nameLabel, nameField]

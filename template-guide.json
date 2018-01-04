@@ -1,9 +1,13 @@
 {
-    "name": "root", //implicitno
-    "type": "RectLayout", //implicitno
+    "name": "root", 
+    "t": "RectLayout",
     "size": {
         "width": 400,
         "height": 300
+    },
+    "position": {
+        "x": 0,
+        "y": 0
     },
     "children": [
         {
@@ -20,22 +24,25 @@
             "children": [
                 {
                     "type": "TextField",
-                    "label": "Ime i prezime", //opis u formi
+                    "label": "Ime i prezime",
                     "position": {
                         "x": 0.07,
                         "y": 0.3
                     },
-                    "size": {},
+                    "size": {
+                        "width": 0.4
+                    },
                     "fontSize": 12
                 },
                 {
                     "type": "ImageField",
-                    "label": "Zig", //opis u formi
+                    "label": "Zig", 
                     "position": {
-                        ...
+                        "x": 0.7,
+                        "y": 0.2
                     },
                     "size": {
-                        ...
+                        "width": 
                     }
                 },
                 {

@@ -1,4 +1,5 @@
 module VKForm where
+    import Graphics.UI.Gtk
     import VKTemplate
 
     getFields :: LayoutObject -> [LayoutObject]
@@ -8,3 +9,13 @@ module VKForm where
     _getFieldsListHelper :: [LayoutObject] -> [LayoutObject]
     _getFieldsListHelper [] = []
     _getFieldsListHelper (x:xs) = getFields x ++ _getFieldsListHelper xs
+
+
+    _toInput :: LayoutObject -> IO Widget
+    _toInput (LayoutObject _ (TextField l)) = do
+        vbox <- vBoxNew True 10
+        entr <- entryNew
+        lbl <- labelNew $ Just l
+        boxPackStart vbox lbl PackGrow 0
+        boxPackStart vbox entr PackGrow 0
+        return $ castToWidget vbox

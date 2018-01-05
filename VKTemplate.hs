@@ -45,3 +45,7 @@ module VKTemplate where
             nameField = LayoutObject (LayoutPair (0.1, 0.6) (0.9, 0.5)) $ TextField "Ime"
         in
             LayoutObject (LayoutPair (0, 0) (300, 150)) $ RectLayout [nameLabel, nameField]
+
+    largerTemplate :: LayoutObject
+    largerTemplate = LayoutObject (LayoutPair (0, 0) (300, 150)) $
+                     RectLayout [basicTemplate, basicTemplate, basicTemplate]

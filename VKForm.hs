@@ -13,9 +13,15 @@ module VKForm where
 
     _toInput :: LayoutObject -> IO Widget
     _toInput (LayoutObject _ (TextField l)) = do
-        vbox <- vBoxNew True 10
         entr <- entryNew
+        _wrapLabeledElement entr l
+    _toInput (LayoutObject _ (ImageField l)) = do
+        entr <- fileChooserButtonNew ("Select " ++ l ++ " image") (FileChooserActionOpen)
+        _wrapLabeledElement entr l
+
+    _wrapLabeledElement elem l = do
+        vbox <- vBoxNew True 10
         lbl <- labelNew $ Just l
         boxPackStart vbox lbl PackGrow 0
-        boxPackStart vbox entr PackGrow 0
+        boxPackStart vbox elem PackGrow 0
         return $ castToWidget vbox

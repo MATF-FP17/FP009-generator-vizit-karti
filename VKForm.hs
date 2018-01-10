@@ -25,3 +25,8 @@ module VKForm where
         boxPackStart vbox lbl PackGrow 0
         boxPackStart vbox elem PackGrow 0
         return $ castToWidget vbox
+
+
+    fromField :: LayoutObject -> Value -> LayoutObject
+    fromField (LayoutObject pair (ImageField _)) value = LayoutObject pair (Image value)
+    fromField (LayoutObject pair (TextField _)) value = LayoutObject pair (Text value 12)

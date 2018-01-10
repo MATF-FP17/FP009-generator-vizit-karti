@@ -1,4 +1,5 @@
 module VKForm where
+    import Data.Maybe
     import Graphics.UI.Gtk
     import VKTemplate
 
@@ -11,13 +12,15 @@ module VKForm where
     _getFieldsListHelper (x:xs) = getFields x ++ _getFieldsListHelper xs
 
 
-    _toInput :: LayoutObject -> IO Widget
+    _toInput :: LayoutObject -> IO (Widget, Widget)
     _toInput (TextField l _ _ _) = do
         entr <- entryNew
-        _wrapLabeledElement entr l
+        wrapped <- _wrapLabeledElement entr l
+        return (wrapped, (castToWidget entr))
     _toInput (ImageField l _ _) = do
         entr <- fileChooserButtonNew ("Select " ++ l ++ " image") (FileChooserActionOpen)
-        _wrapLabeledElement entr l
+        wrapped <- _wrapLabeledElement entr l
+        return (wrapped, (castToWidget entr))
 
     _wrapLabeledElement elem l = do
         vbox <- vBoxNew True 10
@@ -25,6 +28,27 @@ module VKForm where
         boxPackStart vbox lbl PackGrow 0
         boxPackStart vbox elem PackGrow 0
         return $ castToWidget vbox
+
+
+    createInputs ::  Box -> LayoutObject -> IO [Widget]
+    createInputs parent template = do
+        entries <- mapM _toInput $ getFields template
+        mapM_ ((pack parent) . fst) $ entries
+        return $ map snd entries
+
+    pack layout item = boxPackStart layout item PackNatural 0
+
+
+    getFieldsData :: [Widget] -> IO [String]
+    getFieldsData l = mapM getFieldData l
+
+
+    getFieldData :: Widget -> IO String
+    getFieldData widget
+        | isA widget gTypeEntry = entryGetText $ castToEntry widget
+        | isA widget gTypeFileChooser = do
+            s <- fileChooserGetURI $ castToFileChooser widget
+            return $ fromMaybe "" s
 
 
     fromField :: LayoutObject -> String -> LayoutObject

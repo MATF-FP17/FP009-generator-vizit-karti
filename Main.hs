@@ -13,21 +13,23 @@ main = do
   builderAddFromFile builder "MainWindow.ui"
   window <- builderGetObject builder castToWindow "mainWindow"
   viewport <- builderGetObject builder castToViewport "fieldsViewport"
+  generateButton <- builderGetObject builder castToButton "generateButton"
   vbox <- vBoxNew True 10
   containerAdd viewport vbox
-  createInputs $ toBox vbox
+
+  template <- defaultTemplate
+  fieldsInputs <- createInputs (toBox vbox) template
+
   on window deleteEvent $ liftIO mainQuit >> return False
+  on generateButton buttonReleaseEvent $ tryEvent $ liftIO $ getValuesHandler fieldsInputs 
+
   widgetShowAll window
   mainGUI
 
 
-createInputs ::  Box -> IO ()
-createInputs parent = do
-  template <- defaultTemplate
-  entries <- mapM _toInput $ getFields template
-  mapM_ (pack parent) $ entries
-
-pack layout item = boxPackStart layout item PackNatural 0
+getValuesHandler fields = do
+  e <- getFieldsData fields
+  print e
 
 defaultTemplate = do
   defaultTmp <- loadTemplate "template-guide.vkt"

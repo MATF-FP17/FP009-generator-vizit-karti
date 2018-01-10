@@ -1,16 +1,22 @@
 import Graphics.UI.Gtk
+import Graphics.UI.Gtk.Builder
+import Graphics.UI.Gtk.Gdk.EventM
+import qualified Graphics.UI.Gtk.Gdk.Events as E
+import Control.Monad.Trans
 import VKForm
 import VKTemplate
 
 main :: IO ()
 main = do
   _ <- initGUI
-  window <- windowNew
+  builder <- builderNew
+  builderAddFromFile builder "MainWindow.ui"
+  window <- builderGetObject builder castToWindow "mainWindow"
+  viewport <- builderGetObject builder castToViewport "fieldsViewport"
   vbox <- vBoxNew True 10
-  set window [windowDefaultWidth := 200, windowDefaultHeight := 200,
-              containerBorderWidth := 10, containerChild := vbox]
+  containerAdd viewport vbox
   createInputs $ toBox vbox
-  _ <- onDestroy window mainQuit
+  on window deleteEvent $ liftIO mainQuit >> return False
   widgetShowAll window
   mainGUI
 

@@ -13,12 +13,13 @@ maintainer:          nikola.vlahovic2401@gmail.com
 category:            Graphics
 build-type:          Simple
 extra-source-files:  README.md
-cabal-version:       >=1.10
+cabal-version:       >=1.24
 
 executable VKGen
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base >=4.8 && <4.9, gtk
+  build-depends:       base, gtk3, mtl
+
   -- hs-source-dirs:      
   default-language:    Haskell2010

@@ -50,5 +50,9 @@ module VKTemplate where
     largerTemplate = LayoutObject (LayoutPair (0, 0) (300, 150)) $
                      RectLayout [
                         basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
                         LayoutObject (LayoutPair (0, 0) (0.3, 0.3)) $ ImageField "Logo"
                     ]

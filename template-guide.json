@@ -1,14 +1,18 @@
 {
-    "name": "root", //implicitno
-    "type": "RectLayout", //implicitno
+    "name": "root",
+    "tag": "RectLayout",
     "size": {
         "width": 400,
         "height": 300
     },
+    "position": {
+        "x": 0,
+        "y": 0
+    },
     "children": [
         {
             "name": "titula",
-            "type": "RectLayout",
+            "tag": "RectLayout",
             "size": {
                 "width": 0.4,
                 "height": 0.2
@@ -19,40 +23,54 @@
             },
             "children": [
                 {
-                    "type": "TextField",
-                    "label": "Ime i prezime", //opis u formi
+                    "tag": "TextField",
+                    "label": "Ime i prezime",
                     "position": {
                         "x": 0.07,
                         "y": 0.3
                     },
-                    "size": {},
+                    "size": {
+                        "width": 0.4,
+                        "height": 0.7
+                    },
                     "fontSize": 12
                 },
                 {
-                    "type": "ImageField",
-                    "label": "Zig", //opis u formi
+                    "tag": "ImageField",
+                    "label": "Zig",
                     "position": {
-                        ...
+                        "x": 0.7,
+                        "y": 0.2
                     },
                     "size": {
-                        ...
+                        "width":0.6,
+                        "height":0.2
                     }
                 },
                 {
-                    "type": "Image", //template vrednost
+                    "tag": "Image",
                     "position": {
-                        ...
+                        "x":0.07,
+                        "y":0.2
                     },
                     "size": {
-                        ...
+                        "width":0.4,
+                        "height":0.2
                     },
                     "value": "path"
                 },
                 {
-                    "type": "Text", //template vrednost
+                    "tag": "Text",
                     "value": "e-mail",
-                    "position": {...},
-                    "size": {...}
+                    "position": {
+                        "x":0.5,
+                        "y":0.3
+                    },
+                    "size": {
+                        "width":0.4,
+                        "height":0.2
+                    },
+                    "fontSize":12
                 }
             ]
         }

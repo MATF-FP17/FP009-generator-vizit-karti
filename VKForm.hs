@@ -3,8 +3,8 @@ module VKForm where
     import VKTemplate
 
     getFields :: LayoutObject -> [LayoutObject]
-    getFields (LayoutObject _ (RectLayout children)) = _getFieldsListHelper children
-    getFields displayable@(LayoutObject _ obj) = if isField obj then [displayable] else []
+    getFields (RectLayout _ _ _ children) = _getFieldsListHelper children
+    getFields displayable = if isField displayable then [displayable] else []
 
     _getFieldsListHelper :: [LayoutObject] -> [LayoutObject]
     _getFieldsListHelper [] = []
@@ -12,10 +12,10 @@ module VKForm where
 
 
     _toInput :: LayoutObject -> IO Widget
-    _toInput (LayoutObject _ (TextField l)) = do
+    _toInput (TextField l _ _ _) = do
         entr <- entryNew
         _wrapLabeledElement entr l
-    _toInput (LayoutObject _ (ImageField l)) = do
+    _toInput (ImageField l _ _) = do
         entr <- fileChooserButtonNew ("Select " ++ l ++ " image") (FileChooserActionOpen)
         _wrapLabeledElement entr l
 
@@ -27,6 +27,10 @@ module VKForm where
         return $ castToWidget vbox
 
 
-    fromField :: LayoutObject -> Value -> LayoutObject
-    fromField (LayoutObject pair (ImageField _)) value = LayoutObject pair (Image value)
-    fromField (LayoutObject pair (TextField _)) value = LayoutObject pair (Text value 12)
+    fromField :: LayoutObject -> String -> LayoutObject
+    fromField (ImageField _ p s) value = Image {
+        position = p, size = s, value = value
+    }
+    fromField (TextField _ p s f) value = Text {
+        position = p, size = s, value = value, fontSize = f
+    }

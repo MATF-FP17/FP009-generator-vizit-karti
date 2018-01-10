@@ -1,58 +1,72 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module VKTemplate where
 
-    type Position = (Float, Float)
-    type Size = (Float, Float)
-    type Label = String
-    type Value = String
+    import Data.Aeson
+    import Control.Applicative
+    import Control.Monad
+    import qualified Data.ByteString.Lazy as B
+    import GHC.Generics
 
-    data LayoutPair = LayoutPair Position Size deriving (Show)
-    data LayoutObjectType = RectLayout [LayoutObject]
-                          | TextField Label
-                          | ImageField Label
-                          | Image Value
-                          | Text Value Int deriving (Show)
-    data LayoutObject = LayoutObject LayoutPair LayoutObjectType deriving (Show)
+    instance FromJSON LayoutObject
+    instance ToJSON LayoutObject
 
-    class Layoutable e where
-        pos :: e -> Position
-        size :: e -> Size
-        getX :: e -> Float
-        getY :: e -> Float
-        getWidth :: e -> Float
-        getHeight :: e -> Float
-        getX l = fst $ pos $ l
-        getY l = snd $ pos $ l
-        getWidth l = fst $ size $ l
-        getHeight l = snd $ size $ l
+    instance FromJSON Size
+    instance ToJSON Size
 
-    instance Layoutable (LayoutPair) where
-        pos (LayoutPair p _) = p
-        size (LayoutPair _ s) = s
+    instance FromJSON Position
+    instance ToJSON Position
 
-    instance Layoutable (LayoutObject) where
-        pos (LayoutObject p _) = pos p
-        size (LayoutObject s _) = size s
+    data LayoutObject = RectLayout {
+        name        :: String,
+        size        :: Size,
+        position    :: Position,
+        children    :: [LayoutObject]
+    }    |   TextField {
+        label       :: String,
+        position    :: Position,
+        size        :: Size,
+        fontSize    :: Int
+    }    |   ImageField {
+        label       :: String,
+        position    :: Position,
+        size        :: Size
+    }    |   Image {
+        position    :: Position,
+        size        :: Size,
+        value       :: String
+    }    |   Text {
+        position    :: Position,
+        size        :: Size,
+        value       :: String,
+        fontSize    :: Int
+    } deriving (Show, Generic)
 
-    isField :: LayoutObjectType -> Bool
-    isField (TextField _) = True
-    isField (ImageField _) = True
+    isField :: LayoutObject -> Bool
+    isField (TextField _ _ _ _) = True
+    isField (ImageField _ _ _) = True
     isField _ = False
 
-    basicTemplate :: LayoutObject
-    basicTemplate =
-        let
-            nameLabel = LayoutObject (LayoutPair (0.1, 0.1) (0.9, 0.5)) $ Text "Ime" 12
-            nameField = LayoutObject (LayoutPair (0.1, 0.6) (0.9, 0.5)) $ TextField "Ime"
-        in
-            LayoutObject (LayoutPair (0, 0) (300, 150)) $ RectLayout [nameLabel, nameField]
+    data Size =
+        Size {
+            width   :: Float,
+            height  :: Float
+        } deriving (Show, Generic)
 
-    largerTemplate :: LayoutObject
-    largerTemplate = LayoutObject (LayoutPair (0, 0) (300, 150)) $
-                     RectLayout [
-                        basicTemplate, basicTemplate, basicTemplate,
-                        basicTemplate, basicTemplate, basicTemplate,
-                        basicTemplate, basicTemplate, basicTemplate,
-                        basicTemplate, basicTemplate, basicTemplate,
-                        basicTemplate, basicTemplate, basicTemplate,
-                        LayoutObject (LayoutPair (0, 0) (0.3, 0.3)) $ ImageField "Logo"
-                    ]
+    data Position =
+        Position {
+            x :: Float,
+            y :: Float
+        } deriving (Show, Generic)
+
+    loadTemplate :: FilePath -> IO (Either String LayoutObject)
+    loadTemplate v =
+        do
+            -- Get JSON data and decode it
+            d <- (eitherDecode <$> (B.readFile v)) :: IO (Either String LayoutObject)
+            -- If d is Left, the JSON was malformed.
+            -- In that case, we report the error.
+            -- Otherwise, we perform the operation of
+            -- our choice. In this case, just print it.
+            return d

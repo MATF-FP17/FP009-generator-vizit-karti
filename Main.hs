@@ -23,7 +23,12 @@ main = do
 
 createInputs ::  Box -> IO ()
 createInputs parent = do
-  entries <- mapM _toInput $ getFields largerTemplate
+  template <- defaultTemplate
+  entries <- mapM _toInput $ getFields template
   mapM_ (pack parent) $ entries
 
 pack layout item = boxPackStart layout item PackNatural 0
+
+defaultTemplate = do
+  defaultTmp <- loadTemplate "template-guide.json"
+  return $ case (defaultTmp) of Right r -> r

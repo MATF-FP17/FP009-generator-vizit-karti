@@ -37,6 +37,14 @@
 # Sandbox
 .cabal-sandbox
 cabal.sandbox.config
+.stack-work
 
 # Dist
 dist
+
+# Glade autosaves
+*.ui~
+*.glade~
+
+# vscode environment settings
+.vscode

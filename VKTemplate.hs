@@ -7,7 +7,7 @@ module VKTemplate where
 
     data LayoutPair = LayoutPair Position Size deriving (Show)
     data LayoutObjectType = RectLayout [LayoutObject]
-                          | TextField Label 
+                          | TextField Label
                           | ImageField Label
                           | Image Value
                           | Text Value Int deriving (Show)
@@ -32,3 +32,27 @@ module VKTemplate where
     instance Layoutable (LayoutObject) where
         pos (LayoutObject p _) = pos p
         size (LayoutObject s _) = size s
+
+    isField :: LayoutObjectType -> Bool
+    isField (TextField _) = True
+    isField (ImageField _) = True
+    isField _ = False
+
+    basicTemplate :: LayoutObject
+    basicTemplate =
+        let
+            nameLabel = LayoutObject (LayoutPair (0.1, 0.1) (0.9, 0.5)) $ Text "Ime" 12
+            nameField = LayoutObject (LayoutPair (0.1, 0.6) (0.9, 0.5)) $ TextField "Ime"
+        in
+            LayoutObject (LayoutPair (0, 0) (300, 150)) $ RectLayout [nameLabel, nameField]
+
+    largerTemplate :: LayoutObject
+    largerTemplate = LayoutObject (LayoutPair (0, 0) (300, 150)) $
+                     RectLayout [
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        basicTemplate, basicTemplate, basicTemplate,
+                        LayoutObject (LayoutPair (0, 0) (0.3, 0.3)) $ ImageField "Logo"
+                    ]

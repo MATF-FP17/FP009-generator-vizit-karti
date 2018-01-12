@@ -18,8 +18,8 @@ Implemented features are marked with - _DONE_
 ### Major
 
 * Load and parse template files
-* Generate input form from parsed template object
-* Generate business card data
+* Generate input form from parsed template object _DONE_
+* Generate business card data _DONE_
 * Generate image from business card data
 
 ### Nice to have

@@ -30,7 +30,7 @@ module VKForm where
         return $ castToWidget vbox
 
 
-    createInputs ::  Box -> LayoutObject -> IO [Widget]
+    createInputs :: Box -> LayoutObject -> IO [Widget]
     createInputs parent template = do
         entries <- mapM _toInput $ getFields template
         mapM_ ((pack parent) . fst) $ entries
@@ -58,3 +58,28 @@ module VKForm where
     fromField (TextField _ p s f) value = Text {
         position = p, size = s, value = value, fontSize = f
     }
+
+    countFieldsInSubtree (RectLayout _ _ _ l) = countFieldsInL l
+    countFieldsInSubtree x
+        | isField x = 1
+        | otherwise = 0
+    countFieldsInL (x:xs) = countFieldsInSubtree x + countFieldsInL xs
+
+    flListHelper :: [LayoutObject] -> [String] -> [LayoutObject]
+    flListHelper [] _ = []
+    flListHelper x [] = x
+    flListHelper (x@(RectLayout _ _ _ _):xs) values =
+        (_fromFields x values) : flListHelper xs  (drop (countFieldsInSubtree x) values)
+    flListHelper (x:xs) values@(v:vs)
+        | isField x = fromField x v : flListHelper xs vs
+        | otherwise = x : flListHelper xs values
+
+    fromFields :: LayoutObject -> [String] -> LayoutObject
+    fromFields lyt values = _fromFields lyt values
+
+    _fromFields :: LayoutObject -> [String] -> LayoutObject
+    _fromFields (RectLayout n s p l) values = RectLayout {
+        name = n, size = s, position = p, children = flListHelper l values
+    }
+    _fromFields x (v:_) = fromField x v
+    _fromFields x [] = fromField x ""

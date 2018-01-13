@@ -13,24 +13,37 @@ main = do
   builderAddFromFile builder "MainWindow.ui"
   window <- builderGetObject builder castToWindow "mainWindow"
   viewport <- builderGetObject builder castToViewport "fieldsViewport"
-  generateButton <- builderGetObject builder castToButton "generateButton"
-  vbox <- vBoxNew True 10
-  containerAdd viewport vbox
+  frame <- builderGetObject builder castToContainer "templateAlignment"
 
-  template <- defaultTemplate
-  fieldsInputs <- createInputs (toBox vbox) template
+  generateButton <- builderGetObject builder castToButton "generateButton"
+  templateButton <- fileChooserButtonNew "Select template" FileChooserActionOpen
+  containerAdd frame templateButton
 
   on window deleteEvent $ liftIO mainQuit >> return False
-  on generateButton buttonReleaseEvent $ tryEvent $ liftIO $ getValuesHandler fieldsInputs 
+  on templateButton fileChooserButtonFileSet
+    $ liftIO $ onTemplateSelected viewport generateButton (getFieldData $ castToWidget templateButton)
+    >> widgetShowAll window
 
   widgetShowAll window
   mainGUI
 
 
+onTemplateSelected container generateButton templateFile = do
+  containerForeach container $ containerRemove container
+  vbox <- vBoxNew True 10
+  containerAdd container vbox
+  template <- templateFile >>= templateLoader . (drop 7)
+  fieldsInputs <- createInputs (toBox vbox) template
+  on generateButton buttonReleaseEvent $ tryEvent $ liftIO $ getValuesHandler fieldsInputs
+  return ()
+
 getValuesHandler fields = do
   e <- getFieldsData fields
   print e
 
-defaultTemplate = do
-  defaultTmp <- loadTemplate "template-guide.vkt"
+
+templateLoader path = do
+  defaultTmp <- loadTemplate path
   return $ case (defaultTmp) of Right r -> r
+
+defaultTemplate = templateLoader "template-guide.vkt"

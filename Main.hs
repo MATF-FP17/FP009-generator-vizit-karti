@@ -14,9 +14,13 @@ main = do
   window <- builderGetObject builder castToWindow "mainWindow"
   viewport <- builderGetObject builder castToViewport "fieldsViewport"
   frame <- builderGetObject builder castToContainer "templateAlignment"
+  fFilter <- builderGetObject builder castToFileFilter "templateFilter"
 
   generateButton <- builderGetObject builder castToButton "generateButton"
   templateButton <- fileChooserButtonNew "Select template" FileChooserActionOpen
+
+  fileChooserAddFilter (toFileChooser templateButton) fFilter
+
   containerAdd frame templateButton
 
   on window deleteEvent $ liftIO mainQuit >> return False

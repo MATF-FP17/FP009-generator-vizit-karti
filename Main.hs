@@ -38,12 +38,12 @@ onTemplateSelected container generateButton templateFile = do
   containerAdd container vbox
   template <- templateFile >>= templateLoader . (drop 7)
   fieldsInputs <- createInputs (toBox vbox) template
-  on generateButton buttonReleaseEvent $ tryEvent $ liftIO $ getValuesHandler fieldsInputs
+  on generateButton buttonReleaseEvent $ tryEvent $ liftIO $ getValuesHandler template fieldsInputs
   return ()
 
-getValuesHandler fields = do
+getValuesHandler layout fields = do
   e <- getFieldsData fields
-  print e
+  print $ fromFields layout e
 
 
 templateLoader path = do

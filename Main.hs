@@ -48,6 +48,8 @@ getValuesHandler fields = do
 
 templateLoader path = do
   defaultTmp <- loadTemplate path
-  return $ case (defaultTmp) of Right r -> r
+  return $ case (defaultTmp) of
+    Right r -> r
+    Left error -> MetaLabel {message = "Can't load file"}
 
 defaultTemplate = templateLoader "template-guide.vkt"

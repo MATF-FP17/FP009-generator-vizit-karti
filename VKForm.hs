@@ -5,6 +5,7 @@ module VKForm where
 
     getFields :: LayoutObject -> [LayoutObject]
     getFields (RectLayout _ _ _ children) = _getFieldsListHelper children
+    getFields obj@(MetaLabel _) = [obj]
     getFields displayable = if isField displayable then [displayable] else []
 
     _getFieldsListHelper :: [LayoutObject] -> [LayoutObject]
@@ -21,6 +22,9 @@ module VKForm where
         entr <- fileChooserButtonNew ("Select " ++ l ++ " image") (FileChooserActionOpen)
         wrapped <- _wrapLabeledElement entr l
         return (wrapped, (castToWidget entr))
+    _toInput (MetaLabel l) = do
+        ml <- labelNew $ Just l
+        return (castToWidget ml, castToWidget ml)
 
     _wrapLabeledElement elem l = do
         vbox <- vBoxNew True 10

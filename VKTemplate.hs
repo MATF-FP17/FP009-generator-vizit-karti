@@ -41,6 +41,8 @@ module VKTemplate where
         size        :: Size,
         value       :: String,
         fontSize    :: Int
+    }    |   MetaLabel {
+        message     :: String
     } deriving (Show, Generic)
 
     isField :: LayoutObject -> Bool

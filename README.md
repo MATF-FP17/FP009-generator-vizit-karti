@@ -17,9 +17,9 @@ Implemented features are marked with - _DONE_
 
 ### Major
 
-* Load and parse template files
-* Generate input form from parsed template object _DONE_
-* Generate business card data _DONE_
+* Load and parse template files - _DONE_
+* Generate input form from parsed template object - _DONE_
+* Generate business card data - _DONE_
 * Generate image from business card data
 
 ### Nice to have
@@ -30,8 +30,14 @@ Implemented features are marked with - _DONE_
 
 ## Setup
 
-### Install Gtk2HS
+### Install libraries
 
 `
-sudo apt-get install libghc-gtk-dev
+sudo apt-get install libghc-gtk-dev libgtk-3-dev
+`
+
+### Build
+
+`
+stack build
 `

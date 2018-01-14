@@ -149,11 +149,12 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="generateButton">
-                            <property name="label" translatable="yes">Generate</property>
+                          <object class="GtkAlignment" id="generateButtonFrame">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <placeholder/>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>

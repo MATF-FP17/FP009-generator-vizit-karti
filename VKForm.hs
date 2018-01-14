@@ -55,6 +55,7 @@ module VKForm where
         | isA widget gTypeFileChooser = do
             s <- fileChooserGetURI $ castToFileChooser widget
             return $ fromMaybe "" s
+        | otherwise = return ""
 
 
     -- return a non field layout object analogue, with value=value
@@ -65,6 +66,7 @@ module VKForm where
     fromField (TextField _ p s f) value = Text {
         position = p, size = s, value = value, fontSize = f
     }
+    fromField x _ = x
 
     -- functions for counting field layout objects within a layout object
     countFieldsInSubtree (RectLayout _ _ _ l) = countFieldsInL l

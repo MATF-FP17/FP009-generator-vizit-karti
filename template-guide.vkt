@@ -18,16 +18,16 @@
                 "height": 200
             },
             "position": {
-                "x": 0.5,
-                "y": 0.5
+                "x": 0,
+                "y": 0
             },
             "children": [
-                {
+                 {
                     "tag": "TextField",
                     "label": "Ime i prezime",
                     "position": {
-                        "x": 0.07,
-                        "y": 0.3
+                        "x": 100,
+                        "y": 100
                     },
                     "size": {
                         "width": 60,
@@ -37,40 +37,16 @@
                 },
                 {
                     "tag": "ImageField",
-                    "label": "Zig",
+                    "label": "Nesto",
                     "position": {
-                        "x": 0.7,
-                        "y": 0.2
+                        "x": 100,
+                        "y": 100
                     },
                     "size": {
-                        "width":20,
-                        "height":10
-                    }
-                },
-                {
-                    "tag": "Image",
-                    "position": {
-                        "x":0.07,
-                        "y":0.2
+                        "width": 60,
+                        "height": 45
                     },
-                    "size": {
-                        "width":20,
-                        "height":40
-                    },
-                    "value": "path"
-                },
-                {
-                    "tag": "Text",
-                    "value": "e-mail",
-                    "position": {
-                        "x":10,
-                        "y":10
-                    },
-                    "size": {
-                        "width":10,
-                        "height":10
-                    },
-                    "fontsize":12
+                    "fontsize": 12
                 }
             ]
         }

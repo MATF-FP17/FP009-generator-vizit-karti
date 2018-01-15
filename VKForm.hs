@@ -73,6 +73,7 @@ module VKForm where
     countFieldsInSubtree x
         | isField x = 1
         | otherwise = 0
+    countFieldsInL [] = 0
     countFieldsInL (x:xs) = countFieldsInSubtree x + countFieldsInL xs
 
     -- for a list of layout objects, returns their non-field layout object analogues

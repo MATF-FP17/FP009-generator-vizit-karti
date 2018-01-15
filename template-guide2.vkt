@@ -1,0 +1,92 @@
+{
+    "name": "root",
+    "tag": "RectLayout",
+    "size": {
+        "width": 400,
+        "height": 300
+    },
+    "position": {
+        "x": 0,
+        "y": 0
+    },
+    "children": [
+        {
+            "name": "titula",
+            "tag": "RectLayout",
+            "size": {
+                "width": 250,
+                "height": 200
+            },
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "children": [
+                {
+                    "tag": "TextField",
+                    "label": "Ime i prezime",
+                    "position": {
+                        "x": 0,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 60,
+                        "height": 45
+                    },
+                    "fontsize": 0.1
+                },
+                {
+                    "name": "titula",
+                    "tag": "RectLayout",
+                    "size": {
+                        "width": 250,
+                        "height": 200
+                    },
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "children": [
+                        {
+                            "tag": "TextField",
+                            "label": "Ime i prezime",
+                            "position": {
+                                "x": 0,
+                                "y": -5
+                            },
+                            "size": {
+                                "width": 60,
+                                "height": 45
+                            },
+                            "fontsize": 0.1
+                        }
+                    ]
+                },
+                {
+                    "tag": "Image",
+                    "value": "file:///home/nikola/Desktop/haskel/proj/FP009-generator-vizit-karti/abs.png",
+                    "position": {
+                        "x": -5000,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 200000,
+                        "height": 200000
+                    }
+                },
+                {
+                    "tag": "Image",
+                    "value": "file:///home/nikola/Desktop/haskel/proj/FP009-generator-vizit-karti/abs.png",
+                    "position": {
+                        "x": 5000,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 200000,
+                        "height": 200000
+                    }
+                }
+            ]
+        }
+    ]
+}

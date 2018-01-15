@@ -5,6 +5,7 @@ import qualified Graphics.UI.Gtk.Gdk.Events as E
 import Control.Monad.Trans
 import VKForm
 import VKTemplate
+import Diagram
 
 main :: IO ()
 main = do
@@ -55,7 +56,7 @@ onTemplateSelected container generateButtonFrame templateFile = do
     >> return False
 
 
-generateHandler layout fields = getFieldsData fields >>= print . (fromFields layout)
+generateHandler layout fields = getFieldsData fields >>= mainDiagram . (fromFields layout)
 
 loadTemplateFromPath path = do
   defaultTmp <- loadTemplate path

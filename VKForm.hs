@@ -64,7 +64,7 @@ module VKForm where
         position = p, size = s, value = value
     }
     fromField (TextField _ p s f) value = Text {
-        position = p, size = s, value = value, fontSize = f
+        position = p, size = s, value = value, fontsize = f
     }
     fromField x _ = x
 

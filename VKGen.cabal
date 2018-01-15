@@ -19,7 +19,7 @@ executable VKGen
   main-is:             Main.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base, gtk3, mtl, aeson, bytestring
+  build-depends:       base, gtk3, mtl, aeson, bytestring, diagrams, diagrams-lib, diagrams-svg, palette, diagrams-rasterific
 
   -- hs-source-dirs:      
   default-language:    Haskell2010

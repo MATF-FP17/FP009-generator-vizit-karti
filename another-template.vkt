@@ -21,7 +21,7 @@
                     "width": 0.4,
                     "height": 0.7
                 },
-                "fontSize": 12
+                "fontsize": 12
             },
             {
                 "tag": "ImageField",
@@ -58,7 +58,7 @@
                     "width":0.4,
                     "height":0.2
                 },
-                "fontSize":12
+                "fontsize":12
             }
     ]
 }

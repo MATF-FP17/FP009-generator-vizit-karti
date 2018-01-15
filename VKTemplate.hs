@@ -27,7 +27,7 @@ module VKTemplate where
         label       :: String,
         position    :: Position,
         size        :: Size,
-        fontSize    :: Int
+        fontsize    :: Double
     }    |   ImageField {
         label       :: String,
         position    :: Position,
@@ -40,7 +40,7 @@ module VKTemplate where
         position    :: Position,
         size        :: Size,
         value       :: String,
-        fontSize    :: Int
+        fontsize    :: Double
     }    |   MetaLabel {
         message     :: String
     } deriving (Show, Generic)
@@ -52,14 +52,14 @@ module VKTemplate where
 
     data Size =
         Size {
-            width   :: Float,
-            height  :: Float
+            width   :: Double,
+            height  :: Double
         } deriving (Show, Generic)
 
     data Position =
         Position {
-            x :: Float,
-            y :: Float
+            x :: Double,
+            y :: Double
         } deriving (Show, Generic)
 
     loadTemplate :: FilePath -> IO (Either String LayoutObject)
